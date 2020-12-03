@@ -4,7 +4,7 @@ namespace MakeRep;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class MakeRepServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
         //数据库编码报错
         \Schema::defaultStringLength(191);
 
-
+        
     }
 
     /**

@@ -15,5 +15,12 @@
         "psr-4": {
             "MakeRep\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MakeRep\\MakeRepServiceProvider"
+            ]
+        }
     }
 }
