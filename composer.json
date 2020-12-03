@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "zedisdog/laravel-schema-extend": "^1.0"
+    },
     "autoload": {
         "psr-4": {
             "MakeRep\\": "src/"
