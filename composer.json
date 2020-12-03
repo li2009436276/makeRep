@@ -1,0 +1,19 @@
+{
+    "name": "www/make-rep",
+    "description": "R层实例化",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lwq",
+            "email": "571816409@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "MakeRep\\": "src/"
+        }
+    }
+}
