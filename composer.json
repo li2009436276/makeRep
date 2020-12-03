@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MakeRep\\MakeRepServiceProvider"
+                "MakeRep\\Providers\\MakeRepServiceProvider"
             ]
         }
     }
