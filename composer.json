@@ -16,7 +16,10 @@
     "autoload": {
         "psr-4": {
             "MakeRep\\": "src/"
-        }
+        },
+        "files":[
+            "src/Helper/functions.php"
+        ]
     },
     "extra": {
         "laravel": {
