@@ -25,9 +25,6 @@
         "laravel": {
             "providers": [
                 "MakeRep\\Providers\\MakeRepServiceProvider"
-            ],
-            "exceptions": [
-                "MakeRep\\Exceptions\\Handlers"
             ]
         }
     }
