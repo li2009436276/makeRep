@@ -28,15 +28,14 @@ abstract class Repository
     }
 
     /**
-     * 条件查询
-     * @param $where
+     * 添加新数据
+     * @param $data
      * @return mixed
      */
-    public function find($where){
+    public function add($data){
 
         $res = $this->model
-            ->where($where)
-            ->first();
+            ->create($data);
         return $res;
     }
 
@@ -50,6 +49,67 @@ abstract class Repository
         $res = $this->model
             ->where('id',$id)
             ->first();
+        return $res;
+    }
+
+    /**
+     * 查询字段
+     * @param $where
+     * @param string $field
+     * @return mixed
+     */
+    public function index($where,$field = '*'){
+
+        $res = $this->model
+            ->where($where)
+            ->select($field)
+            ->first();
+        return $res;
+    }
+
+    /**
+     * 更新字段
+     * @param $where
+     * @param $data
+     * @return mixed
+     */
+    public function update($where,$data){
+
+        $res = $this->model
+            ->where($where)
+            ->update($data);
+        return $res;
+    }
+
+    /**
+     * 批量查询
+     * @param $where
+     * @param string $field
+     * @return mixed
+     */
+    public function get($where = [],$field = '*'){
+
+        $res = $this->model
+            ->where($where)
+            ->select($field)
+            ->get();
+        return $res;
+    }
+
+    /**
+     * 分页数据
+     * @param array $where
+     * @param string $field
+     * @param int $pageSize
+     * @return mixed
+     */
+    public function pageLists($where = [], $field = '*', $pageSize = 10)
+    {
+        $res = $this->model
+            ->where($where)
+            ->select($field)
+            ->paginate($pageSize);
+
         return $res;
     }
 }
