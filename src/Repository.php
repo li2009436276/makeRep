@@ -40,6 +40,18 @@ abstract class Repository
     }
 
     /**
+     * 批量新数据
+     * @param $data
+     * @return mixed
+     */
+    public function insert($data){
+
+        $res = $this->model
+            ->insert($data);
+        return $res;
+    }
+
+    /**
      * id查询
      * @param $id
      * @return mixed
@@ -110,6 +122,19 @@ abstract class Repository
             ->select($field)
             ->paginate($pageSize);
 
+        return $res;
+    }
+
+    /**
+     * 删除数据
+     * @param $where
+     * @return mixed
+     */
+    public function delete($where) {
+
+        $res = $this->model
+            ->where($where)
+            ->delete();
         return $res;
     }
 }
