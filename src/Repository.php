@@ -115,8 +115,7 @@ abstract class Repository
      * @param int $pageSize
      * @return mixed
      */
-    public function pageLists($where = [], $field = '*', $pageSize = 10)
-    {
+    public function pageLists($where = [], $field = '*', $pageSize = 10){
         $res = $this->model
             ->where($where)
             ->select($field)
@@ -130,11 +129,115 @@ abstract class Repository
      * @param $where
      * @return mixed
      */
-    public function delete($where) {
+    public function delete($where){
 
         $res = $this->model
             ->where($where)
             ->delete();
+        return $res;
+    }
+
+    /**
+     * 查询总数
+     * @param array $where
+     * @return mixed
+     */
+    public function count($where = []){
+
+        $res = $this->model
+            ->where($where)
+            ->count();
+
+        return $res;
+    }
+
+    /**
+     * 最小值
+     * @param string $field
+     * @param array $where
+     * @return mixed
+     */
+    public function min($field = 'id',$where = []){
+
+        $res = $this->model
+            ->where($where)
+            ->min($field);
+
+        return $res;
+    }
+
+    /**
+     * 最大值
+     * @param string $field
+     * @param array $where
+     * @return mixed
+     */
+    public function max($field = 'id',$where = []){
+
+        $res = $this->model
+            ->where($where)
+            ->min($field);
+
+        return $res;
+    }
+
+    /**
+     * 最大值
+     * @param array $where
+     * @param string $field
+     * @return mixed
+     */
+    public function minAndMax($where = [],$field = 'id'){
+
+        $res = $this->model
+            ->where($where)
+            ->orderBy($field,'asc');
+
+        return [$res->first(),$res->last()];
+    }
+
+    /**
+     * 获取平均值
+     * @param string $field
+     * @param array $where
+     * @return mixed
+     */
+    public function avg($field = 'id',$where = []){
+        $res = $this->model
+            ->where($where)
+            ->avg($field);
+        return $res;
+    }
+
+    /**
+     * 字段增加
+     * @param $field
+     * @param int $num
+     * @param array $where
+     * @return mixed
+     */
+    public function increment($field,$num = 1,$where=[]){
+
+        $res = $this->model
+            ->where($where)
+            ->increment($field,$num);
+
+        return $res;
+    }
+
+    /**
+     * 字段减少
+     * @param $field
+     * @param int $num
+     * @param array $where
+     * @return mixed
+     */
+    public function decrement($field,$num = 1,$where=[]){
+
+        $res = $this->model
+            ->where($where)
+            ->decrement($field,$num);
+
         return $res;
     }
 }
