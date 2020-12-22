@@ -240,4 +240,18 @@ abstract class Repository
 
         return $res;
     }
+
+    /**
+     * 对列求和
+     * @param $where
+     * @param $field
+     * @return mixed
+     */
+    public function sum($where,$field){
+
+        $res = $this->model
+            ->where($where)
+            ->sum($field);
+        return $res;
+    }
 }
