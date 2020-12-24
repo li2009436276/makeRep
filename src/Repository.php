@@ -182,6 +182,37 @@ abstract class Repository
     }
 
     /**
+     * 最小值
+     * @param string $field
+     * @param array $where
+     * @return mixed
+     */
+    public function minRow($field = 'id',$where = []){
+
+        $res = $this->model
+            ->where($where)
+            ->orderBy($field,'asc')
+            ->first();
+
+        return $res;
+    }
+
+    /**
+     * 最大值
+     * @param string $field
+     * @param array $where
+     * @return mixed
+     */
+    public function maxRow($field = 'id',$where = []){
+
+        $res = $this->model
+            ->where($where)
+            ->orderBy($field,'desc')
+            ->first();
+        return $res;
+    }
+
+    /**
      * 最大值
      * @param array $where
      * @param string $field
