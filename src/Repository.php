@@ -113,13 +113,21 @@ abstract class Repository
      * @param array $where
      * @param string $field
      * @param int $pageSize
+     * @param null $orderByField
+     * @param string $orderBy
      * @return mixed
      */
-    public function pageLists($where = [], $field = '*', $pageSize = 10){
+    public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
         $res = $this->model
             ->where($where)
-            ->select($field)
-            ->paginate($pageSize);
+            ->select($field);
+
+        if ($orderBy){
+
+            $res->orderBy($orderByField,$orderBy);
+        }
+
+        $res = $res->paginate($pageSize);
 
         return $res;
     }
