@@ -122,7 +122,7 @@ abstract class Repository
             ->where($where)
             ->select($field);
 
-        if ($orderBy){
+        if ($orderByField){
 
             $res->orderBy($orderByField,$orderBy);
         }
