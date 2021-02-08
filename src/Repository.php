@@ -99,13 +99,18 @@ abstract class Repository
      * @param string $field
      * @return mixed
      */
-    public function get($where = [],$field = '*'){
+    public function get($where = [],$field = '*', array $with= []){
 
-        $res = $this->model
+        $model = $this->model
             ->where($where)
-            ->select($field)
-            ->get();
-        return $res;
+            ->select($field);
+
+        if ($with) {
+
+            $model->with($with);
+        }
+
+        return $model->get();
     }
 
     /**
