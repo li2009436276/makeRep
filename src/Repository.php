@@ -54,13 +54,16 @@ abstract class Repository
     /**
      * id查询
      * @param $id
+     * @param array $with
      * @return mixed
      */
-    public function findById($id){
+    public function findById($id,$with=[]){
 
-        $res = $this->model
-            ->where('id',$id)
-            ->first();
+        $model = $this->model->where('id',$id);
+        if ($with) {
+            $model->with($with);
+        }
+        $res = $model->first();
         return $res;
     }
 
@@ -68,14 +71,19 @@ abstract class Repository
      * 查询字段
      * @param $where
      * @param string $field
+     * @param array $with
      * @return mixed
      */
-    public function index($where,$field = '*'){
+    public function index($where,$field = '*',$with=[]){
 
-        $res = $this->model
+        $model = $this->model
             ->where($where)
-            ->select($field)
-            ->first();
+            ->select($field);
+        if ($with) {
+
+            $model->with($with);
+        }
+        $res = $model->first();
         return $res;
     }
 
@@ -97,6 +105,7 @@ abstract class Repository
      * 批量查询
      * @param $where
      * @param string $field
+     * @param array $with
      * @return mixed
      */
     public function get($where = [],$field = '*', array $with= []){
