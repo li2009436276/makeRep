@@ -52,6 +52,19 @@ abstract class Repository
     }
 
     /**
+     * 更新或创建
+     * @param $where
+     * @param $data
+     * @return mixed
+     */
+    public function updateOrCreate($where,$data){
+
+        $res = $this->model
+            ->updateOrCreate($where,$data);
+        return $res;
+    }
+
+    /**
      * id查询
      * @param $id
      * @param array $with
