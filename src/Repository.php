@@ -134,7 +134,7 @@ abstract class Repository
 
         if ($orderByField){
 
-            $res->orderBy($orderByField,$orderBy);
+            $model->orderBy($orderByField,$orderBy);
         }
 
         return $model->get();
