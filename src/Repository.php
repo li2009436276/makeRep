@@ -150,16 +150,16 @@ abstract class Repository
      * @return mixed
      */
     public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
-        $res = $this->model
+        $model = $this->model
             ->where($where)
             ->select($field);
 
         if ($orderByField){
 
-            $res->orderBy($orderByField,$orderBy);
+            $model->orderBy($orderByField,$orderBy);
         }
 
-        $res = $res->paginate($pageSize);
+        $res = $model->paginate($pageSize);
 
         return $res;
     }
