@@ -141,6 +141,22 @@ abstract class Repository
     }
 
     /**
+     * 分组
+     * @param array $where
+     * @param string $field
+     * @return mixed
+     */
+    public function groupBy($where=[],$field='id') {
+
+        $res = $this->model
+            ->where($where)
+            ->groupBy($field)
+            ->get();
+
+        return $res;
+    }
+
+    /**
      * 分页数据
      * @param array $where
      * @param string $field
