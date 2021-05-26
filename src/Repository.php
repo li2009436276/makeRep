@@ -232,7 +232,7 @@ abstract class Repository
 
         $res = $this->model
             ->where($where)
-            ->min($field);
+            ->max($field);
 
         return $res;
     }
