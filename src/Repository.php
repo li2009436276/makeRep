@@ -278,7 +278,7 @@ abstract class Repository
 
         $res = $this->model
             ->where($where)
-            ->orderBy($field,'asc');
+            ->orderBy($field,'asc')->get();
 
         return [$res->first(),$res->last()];
     }
