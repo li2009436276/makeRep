@@ -9,7 +9,7 @@ use MakeRep\Resources\ErrorResource;
 
 class BaseController
 {
-    private $interface;
+    protected $interface;
     public function __construct($interface)
     {
         $this->interface = $interface;
