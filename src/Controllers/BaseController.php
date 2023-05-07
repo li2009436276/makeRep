@@ -43,10 +43,10 @@ class BaseController
         $res = $this->interface->add($data);
         if ($res) {
 
-            return new BaseResource();
+            return new BaseResource($res);
         }
 
-        return new ErrorResource();
+        return new ErrorResource([]);
     }
 
     /**
@@ -73,10 +73,10 @@ class BaseController
         $res = $this->interface->update($where,$data);
         if ($res) {
 
-            return new BaseResource();
+            return new BaseResource($res);
         }
 
-        return new ErrorResource();
+        return new ErrorResource([]);
     }
 
     /**
@@ -93,7 +93,7 @@ class BaseController
             return new BaseResource($res);
         }
 
-        return new ErrorResource();
+        return new ErrorResource([]);
     }
 
     /**
@@ -107,10 +107,10 @@ class BaseController
         $res = $this->interface->delete($where);
         if ($res) {
 
-            return new BaseResource();
+            return new BaseResource($res);
         }
 
-        return new ErrorResource();
+        return new ErrorResource([]);
 
     }
 }
