@@ -26,7 +26,7 @@ class BaseController
         $data = $request->only($field);
         if (in_array('user_id',$field)) {
 
-            $data['user_id'] = $request->ticket['user_id'];
+            $data['user_id'] = $request->ticket['id'];
         }
 
         return $data;
