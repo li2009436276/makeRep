@@ -16,13 +16,31 @@ class BaseController
     }
 
     /**
+     * 获取请求数据
+     * @param $request
+     * @return mixed
+     */
+    protected function getModelField($request){
+
+        $field = $this->interface->model->get('fillable');
+        $data = $request->only($field);
+        if (in_array('user_id',$field)) {
+
+            $data['user_id'] = $request->ticket['user_id'];
+        }
+
+        return $data;
+    }
+
+    /**
      * 添加
      * @param Request $request
      * @return BaseResource|ErrorResource
      */
     public function add(Request $request){
 
-        $res = $this->interface->add($request->all());
+        $data = $this->getModelField($request);
+        $res = $this->interface->add($data);
         if ($res) {
 
             return new BaseResource();
@@ -50,9 +68,9 @@ class BaseController
      * @return BaseResource|ErrorResource
      */
     public function update(Request $request){
-
+        $data = $this->getModelField($request);
         $where = $request->id ? ['id'=>$request->id] : [];
-        $res = $this->interface->update($where,$request->all());
+        $res = $this->interface->update($where,$data);
         if ($res) {
 
             return new BaseResource();

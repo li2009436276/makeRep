@@ -9,7 +9,7 @@ abstract class Repository
 {
     private $app;
 
-    protected $model;
+    public $model;
 
     public function __construct(App $app) {
         $this->app = $app;
@@ -22,7 +22,7 @@ abstract class Repository
         $model = $this->app->make($this->model());
 
         if (!$model instanceof Model)
-            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+            throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Models");
 
         return $this->model = $model;
     }
