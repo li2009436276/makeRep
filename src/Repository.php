@@ -179,9 +179,9 @@ abstract class Repository
     public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
         $model = $this->model;
 
-        if ($model->withs){
+        if ($this->withs){
 
-            $model->with($model->withs);
+            $model->with($this->withs);
         }
 
         $model->where($where)
