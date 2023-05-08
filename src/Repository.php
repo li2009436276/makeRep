@@ -179,7 +179,7 @@ abstract class Repository
     public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
         $model = $this->model;
 
-        if ($this->withs){
+        if (isset($this->withs)){
 
             $model->with($this->withs);
         }
