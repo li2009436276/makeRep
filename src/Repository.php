@@ -11,9 +11,20 @@ abstract class Repository
 
     public $model;
 
+
     public function __construct(App $app) {
         $this->app = $app;
         $this->makeModel();
+    }
+
+    /**
+     * 获取变量
+     * @param $variable
+     * @return mixed
+     */
+    public function __get($variable)
+    {
+        return $this->$variable;
     }
 
     abstract function model();
@@ -166,8 +177,14 @@ abstract class Repository
      * @return mixed
      */
     public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
-        $model = $this->model
-            ->where($where)
+        $model = $this->model;
+
+        if ($model->withs){
+
+            $model->with($model->withs);
+        }
+
+        $model->where($where)
             ->select($field);
 
         if ($orderByField){
