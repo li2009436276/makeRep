@@ -188,16 +188,14 @@ abstract class Repository
      * @return mixed
      */
     public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
-        $model = $this->model;
 
+        $model = $this->model
+            ->where($where)
+            ->select($field);
         if (isset($this->withs)){
 
             $model->with($this->withs);
         }
-
-        $model->where($where)
-            ->select($field);
-
         if ($orderByField){
 
             $model->orderBy($orderByField,$orderBy);
