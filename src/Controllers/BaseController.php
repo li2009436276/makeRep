@@ -22,7 +22,7 @@ class BaseController
      */
     protected function getModelField($request){
 
-        $field = $this->interface->model->get('fillable');
+        $field = $this->interface->model->fillable;
         $data = $request->only($field);
         if (in_array('user_id',$field)) {
 
@@ -37,7 +37,7 @@ class BaseController
      * @return mixed
      */
     protected function getView(){
-       return $this->interface->model->get('view');
+       return $this->interface->model->view;
     }
 
     /**
