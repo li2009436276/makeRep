@@ -98,11 +98,11 @@ class BaseController
     public function update(Request $request){
 
         $where = $request->id ? ['id'=>$request->id] : [];
-        $res = $this->interface->index($where,$request->all());
+        $res = $this->interface->index($where);
         if ($res) {
 
             $viewDir = $this->getView();
-            return view($viewDir.'.update');
+            return view($viewDir.'.update',['info'=>$res]);
         }
 
         abort(403);
