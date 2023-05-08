@@ -102,7 +102,7 @@ class BaseController
         if ($res) {
 
             $viewDir = $this->getView();
-            return view($viewDir.'.update',['info'=>$res]);
+            return view($viewDir.'.update',$res);
         }
 
         abort(403);
