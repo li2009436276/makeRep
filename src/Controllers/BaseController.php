@@ -149,7 +149,7 @@ class BaseController
      */
     public function ajaxDelete(Request $request){
 
-        $where = $request->id ? ['id'=>$request->id] : [];
+        $where = $request->id ? ['id'=>$request->id] : ['id'=> -1];
         $res = $this->interface->delete($where);
         if ($res) {
 
