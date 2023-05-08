@@ -101,7 +101,7 @@ class Handler extends ExceptionHandler
     }
 
     private function getConfig($code){
-        $config = config("code.{$code}");
+        $config = config("code.{$code}") ? config("code.{$code}") : config("admin_code.{$code}");
         if(!$config){
             $config  = config("code.UNKNOWN_CODE");
         }
