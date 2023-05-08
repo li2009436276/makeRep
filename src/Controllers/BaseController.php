@@ -153,7 +153,7 @@ class BaseController
         $res = $this->interface->delete($where);
         if ($res) {
 
-            return new BaseResource();
+            return new BaseResource([]);
         }
 
         return new ErrorResource([]);
