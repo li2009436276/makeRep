@@ -33,11 +33,29 @@ class BaseController
     }
 
     /**
+     * 获取view地址
+     * @return mixed
+     */
+    protected function getView(){
+       return $this->interface->model->get('view');
+    }
+
+    /**
+     * 添加页面
+     * @return mixed
+     */
+    public function add(){
+
+        $viewDir = $this->getView();
+        return view($viewDir.'.add');
+    }
+
+    /**
      * 添加
      * @param Request $request
      * @return BaseResource|ErrorResource
      */
-    public function add(Request $request){
+    public function ajaxAdd(Request $request){
 
         $data = $this->getModelField($request);
         $res = $this->interface->add($data);
@@ -51,10 +69,20 @@ class BaseController
 
     /**
      * 列表
+     * @return mixed
+     */
+    public function lists(){
+
+        $viewDir = $this->getView();
+        return view($viewDir.'.lists');
+    }
+
+    /**
+     * 列表
      * @param Request $request
      * @return BaseCollection
      */
-    public function lists(Request $request){
+    public function ajaxLists(Request $request){
 
         $pageSize = $request->page_size ? : 10;
         $orderBy = $request->order_by ? : 'desc';
@@ -63,11 +91,29 @@ class BaseController
     }
 
     /**
-     * 更新
+     * 详情
      * @param Request $request
      * @return BaseResource|ErrorResource
      */
     public function update(Request $request){
+
+        $where = $request->id ? ['id'=>$request->id] : [];
+        $res = $this->interface->index($where,$request->all());
+        if ($res) {
+
+            $viewDir = $this->getView();
+            return view($viewDir.'.update');
+        }
+
+        abort(403);
+    }
+
+    /**
+     * 更新
+     * @param Request $request
+     * @return BaseResource|ErrorResource
+     */
+    public function ajaxUpdate(Request $request){
         $data = $this->getModelField($request);
         $where = $request->id ? ['id'=>$request->id] : [];
         $res = $this->interface->update($where,$data);
@@ -101,13 +147,13 @@ class BaseController
      * @param Request $request
      * @return BaseResource|ErrorResource
      */
-    public function delete(Request $request){
+    public function ajaxDelete(Request $request){
 
         $where = $request->id ? ['id'=>$request->id] : [];
         $res = $this->interface->delete($where);
         if ($res) {
 
-            return new BaseResource($res);
+            return new BaseResource();
         }
 
         return new ErrorResource([]);
