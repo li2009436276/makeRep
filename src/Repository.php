@@ -103,6 +103,12 @@ abstract class Repository
         $model = $this->model
             ->where($where)
             ->select($field);
+
+        if (isset($this->withs)){
+
+            $with = array_merge($with,$this->withs);
+        }
+
         if ($with) {
 
             $model->with($with);
@@ -137,6 +143,11 @@ abstract class Repository
         $model = $this->model
             ->where($where)
             ->select($field);
+
+        if (isset($this->withs)){
+
+            $with = array_merge($with,$this->withs);
+        }
 
         if ($with) {
 
