@@ -24,7 +24,7 @@ class BaseController
 
         $field = $this->interface->fillable;
         $data = $request->only($field);
-        if (in_array('user_id',$field)) {
+        if (!empty($request->ticket) && in_array('user_id',$field)) {
 
             $data['user_id'] = $request->ticket['id'];
         }
