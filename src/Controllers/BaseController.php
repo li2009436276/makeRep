@@ -133,7 +133,11 @@ class BaseController
      */
     public function info(Request $request){
 
-        $where = $request->id ? ['id'=>$request->id] : ParamService::createCondition($request);
+        $where = ParamService::createCondition($request);
+        if (empty($where)) {
+
+            $where['id'] = $request->ticket['id'];
+        }
         $res = $this->interface->index($where);
         if ($res) {
 
