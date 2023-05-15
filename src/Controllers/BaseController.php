@@ -134,7 +134,7 @@ class BaseController
     public function info(Request $request){
 
         $where = $request->id ? ['id'=>$request->id] : [];
-        $res = $this->interface->index($where,$request->all());
+        $res = $this->interface->index($where);
         if ($res) {
 
             return new BaseResource($res);
