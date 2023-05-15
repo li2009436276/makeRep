@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
+    protected $extra;
     /**
      * A list of the exception types that are not reported.
      *
@@ -58,15 +59,15 @@ class Handler extends ExceptionHandler
         }
         if($exception instanceof ApiException){
             $code = $exception->getCode();
-            $extra = $exception->getExtra();
+            $this->extra = $exception->getExtra();
             $config = $this->getConfig($code);
             list($code,$msg) = $config;
             $result['errcode'] = $code;
             $result['errmsg'] = $msg;
-            if($extra){
-                $result['data'] = $extra;
-                if(collect($extra)->has('msg')){
-                    $result['errmsg'] = $extra['msg'];
+            if( $this->extra){
+                $result['data'] =  $this->extra;
+                if(collect( $this->extra)->has('msg')){
+                    $result['errmsg'] =  $this->extra['msg'];
                 }
             }else{
                 $result['data'] = [];
@@ -101,7 +102,7 @@ class Handler extends ExceptionHandler
     }
 
     private function getConfig($code){
-        $config = config("code.{$code}") ? config("code.{$code}") : config("admin_code.{$code}");
+        $config = config("code.{$code}") ? config("code.{$code}") : config("{$this->extra['code_file']}.code")[$code];
         if(!$config){
             $config  = config("code.UNKNOWN_CODE");
         }
