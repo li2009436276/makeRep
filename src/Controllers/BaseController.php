@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use MakeRep\Resources\BaseCollection;
 use MakeRep\Resources\BaseResource;
 use MakeRep\Resources\ErrorResource;
+use MakeRep\Services\ParamService;
 
 class BaseController
 {
@@ -86,7 +87,7 @@ class BaseController
 
         $pageSize = $request->page_size ? : 10;
         $orderBy = $request->order_by ? : 'desc';
-        $res = $this->interface->pageLists([],'*',$pageSize,'id',$orderBy);
+        $res = $this->interface->pageLists(ParamService::createCondition($request),'*',$pageSize,'id',$orderBy);
         return new BaseCollection($res);
     }
 
