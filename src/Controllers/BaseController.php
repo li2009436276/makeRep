@@ -133,7 +133,7 @@ class BaseController
      */
     public function info(Request $request){
 
-        $where = $request->id ? ['id'=>$request->id] : [];
+        $where = $request->id ? ['id'=>$request->id] : ParamService::createCondition($request);
         $res = $this->interface->index($where);
         if ($res) {
 
