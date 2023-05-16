@@ -23,18 +23,14 @@ class BaseController
      */
     protected function getModelField($request){
 
-        if (isset($this->interface->fillable)) {
+        $field = $this->interface->fillable;
+        $data = $request->only($field);
+        if (in_array('user_id',$field) && empty($request->user_id) && !empty($request->ticket)) {
 
-            $field = $this->interface->fillable;
-            $data = $request->only($field);
-            if (in_array('user_id',$field) && empty($request->user_id) && !empty($request->ticket)) {
-
-                $data['user_id'] = $request->ticket['id'];
-            }
-            return $data;
+            $data['user_id'] = $request->ticket['id'];
         }
+        return $data;
 
-        return $request->all();
     }
 
     /**
