@@ -23,14 +23,18 @@ class BaseController
      */
     protected function getModelField($request){
 
-        $field = $this->interface->fillable;
-        $data = $request->only($field);
-        if (in_array('user_id',$field) && empty($request->user_id) && !empty($request->ticket)) {
+        if (isset($this->interface->fillable)) {
 
-            $data['user_id'] = $request->ticket['id'];
+            $field = $this->interface->fillable;
+            $data = $request->only($field);
+            if (in_array('user_id',$field) && empty($request->user_id) && !empty($request->ticket)) {
+
+                $data['user_id'] = $request->ticket['id'];
+            }
+            return $data;
         }
 
-        return $data;
+        return $request->all();
     }
 
     /**
@@ -87,7 +91,7 @@ class BaseController
 
         $pageSize = $request->page_size ? : 10;
         $orderBy = $request->order_by ? : 'desc';
-        $res = $this->interface->pageLists(ParamService::createCondition($request),'*',$pageSize,'id',$orderBy);
+        $res = $this->interface->pageLists(ParamService::createCondition($request,isset($this->interface->fillable) ? $this->interface->fillable : []),'*',$pageSize,'id',$orderBy);
         return new BaseCollection($res);
     }
 

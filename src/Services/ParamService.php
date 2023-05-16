@@ -9,7 +9,7 @@ class ParamService
      * @param $request
      * @return array
      */
-    public static function createCondition($request){
+    public static function createCondition($request,$fillable = []){
 
         $where = [];
         $param = $request->all();
@@ -32,7 +32,11 @@ class ParamService
 
                     continue;
                 }
-                $where[$key] = $value;
+                if ($fillable && in_array($key,$fillable)) {
+
+                    $where[$key] = $value;
+                }
+
             }
 
         }
