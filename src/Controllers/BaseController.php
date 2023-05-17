@@ -133,7 +133,7 @@ class BaseController
      */
     public function info(Request $request){
 
-        $where = ParamService::createCondition($request);
+        $where = ParamService::createCondition($request,isset($this->interface->fillable) ? $this->interface->fillable : []);
         if (empty($where)) {
 
             $where['id'] = $request->ticket['id'];
@@ -154,7 +154,7 @@ class BaseController
      */
     public function index(Request $request){
 
-        $where = ParamService::createCondition($request);
+        $where = ParamService::createCondition($request,isset($this->interface->fillable) ? $this->interface->fillable : []);
         if (empty($where)) {
 
             $where['id'] = $request->ticket['id'];
