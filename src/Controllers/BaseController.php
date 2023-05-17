@@ -148,6 +148,28 @@ class BaseController
     }
 
     /**
+     * 详情
+     * @param Request $request
+     * @return BaseResource|ErrorResource
+     */
+    public function index(Request $request){
+
+        $where = ParamService::createCondition($request);
+        if (empty($where)) {
+
+            $where['id'] = $request->ticket['id'];
+        }
+        $res = $this->interface->index($where);
+        if ($res) {
+
+            $viewDir = $this->getView();
+            return view($viewDir.'.index',$res);
+        }
+
+        abort(403);
+    }
+
+    /**
      * 删除
      * @param Request $request
      * @return BaseResource|ErrorResource
