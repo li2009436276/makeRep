@@ -17,16 +17,6 @@ abstract class Repository
         $this->makeModel();
     }
 
-    /**
-     * 获取变量
-     * @param $variable
-     * @return mixed
-     */
-    public function __get($variable)
-    {
-        return $this->$variable;
-    }
-
     abstract function model();
 
     public function makeModel() {

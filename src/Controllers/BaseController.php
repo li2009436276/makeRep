@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use MakeRep\Resources\BaseCollection;
 use MakeRep\Resources\BaseResource;
 use MakeRep\Resources\ErrorResource;
+use MakeRep\Services\ParamService;
 
 class BaseController
 {
@@ -24,12 +25,12 @@ class BaseController
 
         $field = $this->interface->fillable;
         $data = $request->only($field);
-        if (!empty($request->ticket) && in_array('user_id',$field)) {
+        if (in_array('user_id',$field) && empty($request->user_id) && !empty($request->ticket)) {
 
             $data['user_id'] = $request->ticket['id'];
         }
-
         return $data;
+
     }
 
     /**
@@ -86,7 +87,7 @@ class BaseController
 
         $pageSize = $request->page_size ? : 10;
         $orderBy = $request->order_by ? : 'desc';
-        $res = $this->interface->pageLists([],'*',$pageSize,'id',$orderBy);
+        $res = $this->interface->pageLists(ParamService::createCondition($request,isset($this->interface->fillable) ? $this->interface->fillable : []),'*',$pageSize,'id',$orderBy);
         return new BaseCollection($res);
     }
 
@@ -132,14 +133,40 @@ class BaseController
      */
     public function info(Request $request){
 
-        $where = $request->id ? ['id'=>$request->id] : [];
-        $res = $this->interface->index($where,$request->all());
+        $where = ParamService::createCondition($request,isset($this->interface->fillable) ? $this->interface->fillable : []);
+        if (empty($where)) {
+
+            $where['id'] = $request->ticket['id'];
+        }
+        $res = $this->interface->index($where);
         if ($res) {
 
             return new BaseResource($res);
         }
 
         return new ErrorResource([]);
+    }
+
+    /**
+     * 详情
+     * @param Request $request
+     * @return BaseResource|ErrorResource
+     */
+    public function index(Request $request){
+
+        $where = ParamService::createCondition($request,isset($this->interface->fillable) ? $this->interface->fillable : []);
+        if (empty($where)) {
+
+            $where['id'] = $request->ticket['id'];
+        }
+        $res = $this->interface->index($where);
+        if ($res) {
+
+            $viewDir = $this->getView();
+            return view($viewDir.'.index',$res);
+        }
+
+        abort(403);
     }
 
     /**
