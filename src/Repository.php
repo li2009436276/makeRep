@@ -118,6 +118,17 @@ abstract class Repository
     }
 
     /**
+     * whereIn
+     * @param $field
+     * @param $array
+     * @return mixed
+     */
+    public function whereIn($field = 'id',$array = []) {
+
+        return $this->model->whereIn($field,$array)->get();
+    }
+
+    /**
      * 更新字段
      * @param $where
      * @param $data
