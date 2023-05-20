@@ -113,9 +113,20 @@ abstract class Repository
      * @param $array
      * @return mixed
      */
-    public function whereIn($field = 'id',$array = []) {
+    public function whereIn($field = 'id',$array = [],$with = []) {
 
-        return $this->model->whereIn($field,$array)->get();
+        $model = $this->model->whereIn($field,$array);
+
+        if (isset($this->withs)){
+
+            $with = array_merge($with,$this->withs);
+        }
+
+        if ($with) {
+
+            $model->with($with);
+        }
+        return $model->get();
     }
 
     /**
