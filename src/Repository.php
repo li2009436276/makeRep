@@ -175,6 +175,19 @@ abstract class Repository
     }
 
     /**
+     * 限制量查询
+     * @param $where
+     * @param $limit
+     * @return mixed
+     */
+    public function limit($where = [],$limit = 10) {
+        return $this->model
+            ->where($where)
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
      * 分组
      * @param array $where
      * @param string $field
