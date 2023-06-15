@@ -7,6 +7,7 @@ use MakeRep\Resources\BaseCollection;
 use MakeRep\Resources\BaseResource;
 use MakeRep\Resources\ErrorResource;
 use MakeRep\Services\ParamService;
+use DB;
 
 class BaseController
 {
@@ -185,5 +186,30 @@ class BaseController
 
         return new ErrorResource([]);
 
+    }
+
+    /**
+     * 排序
+     * @param Request $request
+     * @return \App\Http\Resources\BaseResource|\App\Http\Resources\ErrorResource
+     */
+    public function ajaxSort(Request $request) {
+
+        $data = $request->all();
+        DB::beginTransaction();
+        foreach ($data as $value){
+
+            if (is_array($value)) {
+                $res = $this->interface->update(['id'=>$value['id']],['sort'=>$value['sort']]);
+                if ($res === false) {
+
+                    DB::rollback();
+                    return new ErrorResource([]);
+                }
+            }
+        }
+
+        DB::commit();
+        return new BaseResource([]);
     }
 }
