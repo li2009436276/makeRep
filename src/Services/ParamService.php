@@ -36,7 +36,7 @@ class ParamService
 
                     continue;
                 }
-                if ($fillable && in_array($key,$fillable)) {
+                if ($fillable && in_array($key,$fillable) && $value) {
 
                     $where[$key] = $value;
                 }
