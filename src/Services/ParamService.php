@@ -18,14 +18,14 @@ class ParamService
 
             if (!empty($value['method'])) {
 
-                switch ($value['method']) {
+                self::whereParam($value['method'],$key,$value,$where);
 
-                    case "like" : {
+            } else if (strpos('#',$key)) {
 
-                        $where[] = [$key,'like','%'.$value['value'].'%'];
-                        break;
-                    }
-                }
+                $whereStrArray = explode('#',$key);
+
+                self::whereParam($whereStrArray[1],$whereStrArray[0],$value,$where);
+
             } else {
 
                 if (is_array($value)) {
@@ -42,5 +42,25 @@ class ParamService
         }
 
         return $where;
+    }
+
+    /**
+     * where的查询条件
+     * @param $method
+     * @param $key
+     * @param $value
+     * @param $where
+     * @return void
+     */
+    protected static function whereParam($method,$key,$value,&$where) {
+
+        switch ($method) {
+
+            case "like" : {
+
+                $where[] = [$key,'like','%'.$value['value'].'%'];
+                break;
+            }
+        }
     }
 }
