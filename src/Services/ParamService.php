@@ -20,7 +20,7 @@ class ParamService
 
                 self::whereParam($value['method'],$key,$value,$where);
 
-            } else if (strpos('#',$key)) {
+            } else if (strpos($key,'#')) {
 
                 if ($value) {
 
