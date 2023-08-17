@@ -22,9 +22,13 @@ class ParamService
 
             } else if (strpos('#',$key)) {
 
-                $whereStrArray = explode('#',$key);
+                if ($value) {
 
-                self::whereParam($whereStrArray[1],$whereStrArray[0],$value,$where);
+                    $whereStrArray = explode('#',$key);
+
+                    self::whereParam($whereStrArray[1],$whereStrArray[0],$value,$where);
+                }
+
 
             } else {
 
