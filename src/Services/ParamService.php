@@ -62,7 +62,7 @@ class ParamService
 
             case "like" : {
 
-                $where[] = [$key,'like','%'.$value['value'].'%'];
+                $where[] = [$key,'like','%'.$value.'%'];
                 break;
             }
         }
