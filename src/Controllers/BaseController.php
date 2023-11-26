@@ -132,8 +132,8 @@ class BaseController
 
                 $interface = resolve($belongToRelation[0]);
                 $belongToRelationArray = $interface->get($belongToRelation[1]);
-
-                return view($viewDir.'.update',[$res,$belongToRelation[2]=>$belongToRelationArray]);
+                $res[$belongToRelation[2]] = $belongToRelationArray;
+                return view($viewDir.'.update',$res);
             }
 
 
