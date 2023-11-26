@@ -48,10 +48,11 @@ class BaseController
      */
     protected function getBelongToRelation(){
 
-        if (empty($this->interface->belongToRelation)){
+        if (!empty($this->interface->belongToRelation)){
 
             $interface = resolve($this->interface->belongToRelation[0]);
             $belongToRelationArray = $interface->get($this->interface->belongToRelation[1]);
+
             return $belongToRelationArray;
         }
         return null;
