@@ -48,7 +48,13 @@ class BaseController
      */
     protected function getBelongToRelation(){
 
-        return empty($this->interface->belongToRelation) ? null : $this->interface->belongToRelation;
+        if (empty($this->interface->belongToRelation)){
+
+            $interface = resolve($this->interface->belongToRelation[0]);
+            $belongToRelationArray = $interface->get($this->interface->belongToRelation[1]);
+            return $belongToRelationArray;
+        }
+        return null;
     }
 
     /**
@@ -61,13 +67,11 @@ class BaseController
 
         $viewDir = $this->getView();
 
-        $belongToRelation = $this->getBelongToRelation();
-        if ($belongToRelation) {
+        $belongToRelationArray = $this->getBelongToRelation();
+        if (!is_null($belongToRelationArray)) {
 
-            $interface = resolve($belongToRelation[0]);
-            $belongToRelationArray = $interface->get($belongToRelation[1]);
 
-            return view($viewDir.'.add',[$belongToRelation[2]=>$belongToRelationArray]);
+            return view($viewDir.'.add',[$this->interface->belongToRelation[2]=>$belongToRelationArray]);
         }
 
         return view($viewDir.'.add');
@@ -127,12 +131,12 @@ class BaseController
 
             $viewDir = $this->getView();
 
-            $belongToRelation = $this->getBelongToRelation();
-            if ($belongToRelation) {
 
-                $interface = resolve($belongToRelation[0]);
-                $belongToRelationArray = $interface->get($belongToRelation[1]);
-                $res[$belongToRelation[2]] = $belongToRelationArray;
+            $belongToRelationArray = $this->getBelongToRelation();
+            if (!is_null($belongToRelationArray)) {
+
+
+                $res[$this->interface->belongToRelation[2]] = $belongToRelationArray;
                 return view($viewDir.'.update',$res);
             }
 
