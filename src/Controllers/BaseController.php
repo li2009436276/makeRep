@@ -61,7 +61,7 @@ class BaseController
 
         $viewDir = $this->getView();
 
-        $belongToRelation = $this->getBelong();
+        $belongToRelation = $this->getBelongToRelation();
         if ($belongToRelation) {
 
             $interface = resolve($belongToRelation[0]);
@@ -127,7 +127,7 @@ class BaseController
 
             $viewDir = $this->getView();
 
-            $belongToRelation = $this->getBelong();
+            $belongToRelation = $this->getBelongToRelation();
             if ($belongToRelation) {
 
                 $interface = resolve($belongToRelation[0]);
