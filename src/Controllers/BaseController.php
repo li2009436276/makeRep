@@ -43,13 +43,35 @@ class BaseController
     }
 
     /**
+     * 获取属于
+     * @return mixed
+     */
+    protected function getBelongToRelation(){
+
+        return empty($this->interface->belongToRelation) ? null : $this->interface->belongToRelation;
+    }
+
+    /**
      * 添加页面
      * @return mixed
      */
     public function add(){
 
+
+
         $viewDir = $this->getView();
+
+        $belongToRelation = $this->getBelong();
+        if ($belongToRelation) {
+
+            $interface = resolve($belongToRelation[0]);
+            $belongToRelationArray = $interface->get($belongToRelation[1]);
+
+            return view($viewDir.'.add',[$belongToRelation[2]=>$belongToRelationArray]);
+        }
+
         return view($viewDir.'.add');
+
     }
 
     /**
@@ -104,6 +126,17 @@ class BaseController
         if ($res) {
 
             $viewDir = $this->getView();
+
+            $belongToRelation = $this->getBelong();
+            if ($belongToRelation) {
+
+                $interface = resolve($belongToRelation[0]);
+                $belongToRelationArray = $interface->get($belongToRelation[1]);
+
+                return view($viewDir.'.update',[$res,$belongToRelation[2]=>$belongToRelationArray]);
+            }
+
+
             return view($viewDir.'.update',$res);
         }
 
