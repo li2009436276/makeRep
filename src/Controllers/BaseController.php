@@ -51,7 +51,9 @@ class BaseController
         if (!empty($this->interface->belongToRelation)){
 
             $interface = resolve($this->interface->belongToRelation[0]);
-            $belongToRelationArray = $interface->get($this->interface->belongToRelation[1]);
+
+            $keys = array_keys($this->interface->belongToRelation[1]);
+            $belongToRelationArray = $interface->whereIn($keys[0],$this->interface->belongToRelation[1][$keys[0]]);
 
             return $belongToRelationArray;
         }
