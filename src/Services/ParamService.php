@@ -36,9 +36,21 @@ class ParamService
 
                     continue;
                 }
-                if ($fillable && in_array($key,$fillable) && $value) {
+                if ($fillable  && $value) {
 
-                    $where[$key] = $value;
+                    /**
+                     * 正常的字段名
+                     */
+                    if (in_array($key,$fillable)) {
+
+                        $where[$key] = $value;
+                    }
+
+                    //将某个字段值转到另外一个字段
+                    if (key_exists($key,$fillable)) {
+
+                        $where[$fillable[$key]] = $value;
+                    }
                 }
 
             }
