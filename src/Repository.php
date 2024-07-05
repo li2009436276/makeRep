@@ -212,7 +212,7 @@ abstract class Repository
      * @param string $orderBy
      * @return mixed
      */
-    public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc'){
+    public function pageLists($where = [], $field = '*', $pageSize = 10,$orderByField = null,$orderBy='asc',$whereInField = 'id',$whereIn = []){
 
         $model = $this->model
             ->where($where)
@@ -224,6 +224,11 @@ abstract class Repository
         if ($orderByField){
 
             $model->orderBy($orderByField,$orderBy);
+        }
+
+        if ($whereIn) {
+
+            $model->whereIn($whereInField,$whereIn);
         }
 
         $res = $model->paginate($pageSize);
