@@ -150,7 +150,7 @@ abstract class Repository
      * @param array $with
      * @return mixed
      */
-    public function get($where = [],$field = '*', array $with= [],$orderByField = null,$orderBy='asc'){
+    public function get($where = [],$field = '*', array $with= [],$orderByField = null,$orderBy='asc',$whereInField = 'id',$whereIn = []){
 
         $model = $this->model
             ->where($where)
@@ -164,6 +164,11 @@ abstract class Repository
         if ($with) {
 
             $model->with($with);
+        }
+
+        if ($whereIn) {
+
+            $model->whereIn($whereInField,$whereIn);
         }
 
         if ($orderByField){
